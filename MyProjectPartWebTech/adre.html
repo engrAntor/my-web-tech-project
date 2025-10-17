@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Courses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        form {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .message {
+            color: green;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Courses</h1>
+
+        <h2>Add a New Course</h2>
+        <form id="addCourseForm">
+            <label>Course Name:</label>
+            <input type="text" id="course_name" required>
+
+            <label>Time Slot:</label>
+            <input type="text" id="time_slot" required>
+
+            <label>Available Seats:</label>
+            <input type="number" id="available_seats" required>
+
+            <button type="submit">Add Course</button>
+        </form>
+
+        <h2>Remove a Course</h2>
+        <form id="removeCourseForm">
+            <label>Course ID:</label>
+            <input type="number" id="remove_course_id" required>
+            <button type="submit">Remove Course</button>
+        </form>
+
+        <h2>Update Time Slot</h2>
+        <form id="updateTimeSlotForm">
+            <label>Course ID:</label>
+            <input type="number" id="update_course_id" required>
+
+            <label>New Time Slot:</label>
+            <input type="text" id="new_time_slot" required>
+
+            <button type="submit">Update Time Slot</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function validateInput(input) {
+            return input.trim() !== "";
+        }
+
+        document.getElementById('addCourseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const courseName = document.getElementById('course_name').value;
+            const timeSlot = document.getElementById('time_slot').value;
+            const availableSeats = document.getElementById('available_seats').value;
+
+            if (!validateInput(courseName) || !validateInput(timeSlot) || !validateInput(availableSeats)) {
+                document.getElementById('message').textContent = "All fields are required.";
+                document.getElementById('message').style.color = "red";
+                return;
+            }
+
+            fetch('manage_courses.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'add', course_name: courseName, time_slot: timeSlot, available_seats: availableSeats })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('message').style.color = data.success ? "green" : "red";
+            });
+        });
+
+        document.getElementById('removeCourseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const courseId = document.getElementById('remove_course_id').value;
+            fetch('manage_courses.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'remove', course_id: courseId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('message').style.color = data.success ? "green" : "red";
+            });
+        });
+
+        document.getElementById('updateTimeSlotForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const courseId = document.getElementById('update_course_id').value;
+            const newTimeSlot = document.getElementById('new_time_slot').value;
+            fetch('manage_courses.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'update', course_id: courseId, new_time_slot: newTimeSlot })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('message').style.color = data.success ? "green" : "red";
+            });
+        });
+    </script>
+</body>
+</html>

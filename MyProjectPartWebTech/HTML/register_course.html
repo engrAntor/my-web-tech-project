@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+        }
+        .header {
+            background-color: #0078d7;
+            color: white;
+            padding: 10px 0;
+        }
+        .section {
+            display: inline-block;
+            margin: 10px;
+            text-align: left;
+        }
+        .section h3 {
+            border-bottom: 1px solid #ccc;
+        }
+        .btn {
+            margin: 10px 5px;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-confirm {
+            background-color: #4CAF50;
+        }
+        .btn-show {
+            background-color: #6a5acd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Register for Courses</h1>
+        </div>
+        <div class="content">
+            <div class="section">
+                <h3>Object Oriented Programming 2</h3>
+                <label><input type="checkbox"> OBJECT ORIENTED PROGRAMMING 2 [A]</label><br>
+                <label><input type="checkbox"> OBJECT ORIENTED PROGRAMMING 2 [B]</label><br>
+                <label><input type="checkbox"> OBJECT ORIENTED PROGRAMMING 2 [C]</label>
+            </div>
+            <div class="section">
+                <h3>Artificial Intelligence</h3>
+                <label><input type="checkbox"> ARTIFICIAL INTELLIGENCE [A]</label><br>
+                <label><input type="checkbox"> ARTIFICIAL INTELLIGENCE [B]</label><br>
+                <label><input type="checkbox"> ARTIFICIAL INTELLIGENCE [C]</label>
+            </div>
+            <div class="section">
+                <h3>Computer Graphics</h3>
+                <label><input type="checkbox"> COMPUTER GRAPHICS [A]</label><br>
+                <label><input type="checkbox"> COMPUTER GRAPHICS [B]</label><br>
+                <label><input type="checkbox"> COMPUTER GRAPHICS [C]</label>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-confirm">Confirm</button>
+            <button class="btn btn-show" onclick="location.href='view_courses.html'">Show Registered Sections</button>
+        </div>
+    </div>
+</body>
+</html>
