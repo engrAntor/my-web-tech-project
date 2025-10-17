@@ -1,0 +1,5 @@
+# Ignore the vendor folder created by Composer
+vendor/
+
+# Ignore the secret credentials file
+config.php
